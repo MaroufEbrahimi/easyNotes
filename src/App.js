@@ -1,12 +1,10 @@
 import React from "react";
-
-import Notes from "./components/Notes";
+import ListEmployee from "./components/ListEmployee";
 
 const App = () => {
   return (
-    <div className="App">
-      <h1>React Project Demo</h1>
-      <Notes />
+    <div className="container">
+      <ListEmployee />
     </div>
   );
 };
