@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { useNavigate } from "react-router-dom";
+import EmployeeServices from "../Services/EmployeeServices";
 
 export default class AddEmployee extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ export default class AddEmployee extends Component {
 
     this.changeFirstName = this.changeFirstName.bind(this);
     this.changeLastName = this.changeLastName.bind(this);
-    this.changeEmailId = this.changeEmailId.bind(this);
+    // this.changeEmailId = this.changeEmailId.bind(this);
     this.saveEmployee = this.saveEmployee.bind(this);
   }
 
@@ -24,7 +25,13 @@ export default class AddEmployee extends Component {
       lastName: this.state.lastName,
       emailId: this.state.emailId,
     };
-    console.log(JSON.stringify(employee));
+    //  EmployeeServices.getEmployees().then((res) => {
+    //    this.setState({ employees: res.data });
+    //  });
+
+    EmployeeServices.createEmployee(employee).then((res) => {
+      this.props.useNavigate("/employees");
+    });
   };
 
   changeFirstName(event) {
@@ -55,7 +62,6 @@ export default class AddEmployee extends Component {
                   <div className="form-group mt-3">
                     <label>First Name</label>
                     <input
-                      type="text"
                       className="form-control"
                       placeholder="First Name"
                       name="firstname"
@@ -66,7 +72,6 @@ export default class AddEmployee extends Component {
                   <div className="form-group mt-3">
                     <label>Last Name</label>
                     <input
-                      type="text"
                       className="form-control"
                       placeholder="Last Name"
                       name="lastname"
@@ -77,7 +82,6 @@ export default class AddEmployee extends Component {
                   <div className="form-group mt-3">
                     <label>Email Address</label>
                     <input
-                      type="email"
                       className="form-control"
                       placeholder="Email Address"
                       name="email"
