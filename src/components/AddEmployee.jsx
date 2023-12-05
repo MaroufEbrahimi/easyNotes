@@ -14,7 +14,7 @@ export default class AddEmployee extends Component {
 
     this.changeFirstName = this.changeFirstName.bind(this);
     this.changeLastName = this.changeLastName.bind(this);
-    // this.changeEmailId = this.changeEmailId.bind(this);
+    this.changeEmailId = this.changeEmailId.bind(this);
     this.saveEmployee = this.saveEmployee.bind(this);
   }
 
@@ -25,12 +25,9 @@ export default class AddEmployee extends Component {
       lastName: this.state.lastName,
       emailId: this.state.emailId,
     };
-    //  EmployeeServices.getEmployees().then((res) => {
-    //    this.setState({ employees: res.data });
-    //  });
 
     EmployeeServices.createEmployee(employee).then((res) => {
-      this.props.useNavigate("/employees");
+      this.props.history.push("/employees");
     });
   };
 
@@ -47,7 +44,7 @@ export default class AddEmployee extends Component {
   }
 
   cancel() {
-    this.props.useNavigate("/employees");
+    this.props.history.push("/employees");
   }
 
   render() {
