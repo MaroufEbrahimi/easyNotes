@@ -7,6 +7,7 @@ export default class AddEmployee extends Component {
     super(props);
 
     this.state = {
+      id: this.props.match.params.id,
       firstName: "",
       lastName: "",
       emailId: "",
@@ -15,10 +16,25 @@ export default class AddEmployee extends Component {
     this.changeFirstName = this.changeFirstName.bind(this);
     this.changeLastName = this.changeLastName.bind(this);
     this.changeEmailId = this.changeEmailId.bind(this);
-    this.saveEmployee = this.saveEmployee.bind(this);
+    this.saveOrUpdateEmployee = this.saveOrUpdateEmployee.bind(this);
   }
 
-  saveEmployee = (e) => {
+  componentDidMount() {
+    if (this.state.id === "_add") {
+      return;
+    } else {
+      EmployeeServices.getEmployeeById(this.state.id).then((res) => {
+        let employee = res.data;
+        this.setState({
+          firstName: employee.firstName,
+          lastName: employee.lastName,
+          emailId: employee.emailId,
+        });
+      });
+    }
+  }
+
+  saveOrUpdateEmployee = (e) => {
     e.preventDefault();
     let employee = {
       firstName: this.state.firstName,
@@ -26,9 +42,15 @@ export default class AddEmployee extends Component {
       emailId: this.state.emailId,
     };
 
-    EmployeeServices.createEmployee(employee).then((res) => {
-      this.props.history.push("/employees");
-    });
+    if (this.state.id === "_add") {
+      EmployeeServices.createEmployee(employee).then((res) => {
+        this.props.history.push("/employees");
+      });
+    } else {
+      EmployeeServices.updateEmployee(employee, this.state.id).then((res) => {
+        this.props.history.push("/employees");
+      });
+    }
   };
 
   changeFirstName(event) {
@@ -53,7 +75,9 @@ export default class AddEmployee extends Component {
         <div className="container mt-3">
           <div className="row">
             <div className="card col-md-6 offset-md-3 offset-md-3">
-              <h3 className="text-center">Add Employee</h3>
+              <h3 className="text-center">{`${
+                this.state.id === "_add" ? "Add Employee" : "Update Employee"
+              } `}</h3>
               <div className="card-body">
                 <form>
                   <div className="form-group mt-3">
@@ -89,7 +113,7 @@ export default class AddEmployee extends Component {
 
                   <button
                     className="btn btn-success mt-3"
-                    onClick={this.saveEmployee}
+                    onClick={this.saveOrUpdateEmployee}
                   >
                     Save
                   </button>

@@ -12,7 +12,7 @@ export default class ListEmployee extends Component {
   }
 
   editEmployee(id) {
-    this.props.history.push(`/update-employee/${id}`);
+    this.props.history.push(`/add-employee/${id}`);
   }
 
   componentDidMount() {
@@ -23,7 +23,7 @@ export default class ListEmployee extends Component {
 
   // add new employee
   addEmployee() {
-    this.props.history.push("/add-employee");
+    this.props.history.push("/add-employee/_add");
   }
 
   render() {
@@ -58,6 +58,12 @@ export default class ListEmployee extends Component {
                       onClick={() => this.editEmployee(employee.id)}
                     >
                       Update
+                    </button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => this.editEmployee(employee.id)}
+                    >
+                      Delete
                     </button>
                   </td>
                 </tr>
