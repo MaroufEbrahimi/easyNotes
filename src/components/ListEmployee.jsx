@@ -26,6 +26,10 @@ export default class ListEmployee extends Component {
     });
   }
 
+  viewEmployee(id) {
+    this.props.history.push(`/view-employee/${id}`);
+  }
+
   componentDidMount() {
     EmployeeServices.getEmployees().then((res) => {
       this.setState({ employees: res.data });
@@ -76,6 +80,13 @@ export default class ListEmployee extends Component {
                       onClick={() => this.deleteEmployee(employee.id)}
                     >
                       Delete
+                    </button>
+                    <button
+                      style={{ marginLeft: "10px" }}
+                      className="btn btn-info"
+                      onClick={() => this.viewEmployee(employee.id)}
+                    >
+                      View
                     </button>
                   </td>
                 </tr>
