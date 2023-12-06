@@ -9,10 +9,21 @@ export default class ListEmployee extends Component {
     };
     this.addEmployee = this.addEmployee.bind(this);
     this.editEmployee = this.editEmployee.bind(this);
+    this.deleteEmployee = this.deleteEmployee.bind(this);
   }
 
   editEmployee(id) {
     this.props.history.push(`/add-employee/${id}`);
+  }
+
+  deleteEmployee(id) {
+    EmployeeServices.deleteEmployee(id).then((res) => {
+      this.setState({
+        employees: this.state.employees.filter(
+          (employee) => employee.id !== id
+        ),
+      });
+    });
   }
 
   componentDidMount() {
@@ -60,8 +71,9 @@ export default class ListEmployee extends Component {
                       Update
                     </button>
                     <button
+                      style={{ marginLeft: "10px" }}
                       className="btn btn-danger"
-                      onClick={() => this.editEmployee(employee.id)}
+                      onClick={() => this.deleteEmployee(employee.id)}
                     >
                       Delete
                     </button>
