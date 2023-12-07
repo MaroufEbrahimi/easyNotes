@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import EmployeeServices from "../Services/EmployeeServices";
 
-export default class ListEmployee extends Component {
+class ListEmployee extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -98,3 +98,5 @@ export default class ListEmployee extends Component {
     );
   }
 }
+
+export default ListEmployee;

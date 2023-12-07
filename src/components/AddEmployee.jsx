@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { useNavigate } from "react-router-dom";
 import EmployeeServices from "../Services/EmployeeServices";
 
 export default class AddEmployee extends Component {
